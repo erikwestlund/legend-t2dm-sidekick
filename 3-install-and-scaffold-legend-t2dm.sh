@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Set Personal Access Token. Fill in below
+LEGEND_GITHUB_PAT="MYTOKEN"
+
 # Clone directory and install using renv.
 cd $HOME
 git clone https://github.com/ohdsi-studies/LegendT2dm
@@ -44,3 +47,16 @@ Rscript -e 'renv::rebuild()'
 
 # And restore.
 Rscript -e 'renv::restore()'
+
+# Create some required repositories
+mkdir -p $HOME/LegendT2dm/DatabaseDrivers
+export DATABASECONNECTOR_JAR_FOLDER="$HOME/LegendT2dm/DatabaseDrivers"
+
+mkdir -p $HOME/LegendT2dm/AndromedaTemp
+export ANDROMEDA_TEMP_FOLDER="$HOME/LegendT2dm/AndromedaTemp"
+
+mkdir -p $HOME/LegendT2dm/StudyResults
+export STUDY_RESULTS_FOLDER="$HOME/LegendT2dm/StudyResults"
+
+# copy inst dirs into this directory
+rsync -ra $HOME/LegendT2dm/inst/ $HOME/LegendT2dm/
